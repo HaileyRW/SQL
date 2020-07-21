@@ -1,4 +1,12 @@
 /*
+Description:  put table into 3NF
+Notes: Added genderReq and gradeReq tables
+Author: Hailey Wilson
+Version: 2.0
+Date: July, 2020
+*/
+
+/*
 Description:  script to create the Student Circuit project tables
 Author: Winsum Chang
 Version: 1.0
@@ -25,9 +33,11 @@ create table Student (
     	Fname varchar(256) NOT NULL,
     	Lname varchar(256) NOT NULL,
     	ChurchName varchar(256),
-	grade integer,
-	gender varchar(32),
-	PRIMARY KEY (StudentID)  
+	gradeID integer,
+	genderID varchar(32),
+	PRIMARY KEY (StudentID), 
+	FOREIGN KEY (gradeID) REFERENCES GradeReq(gradeID), 
+	FOREIGN KEY (genderID) REFERENCES GenderReq(genderID)
 );
 --
 create table Circuit(
@@ -56,14 +66,14 @@ create table Assignment(
 );
 --
 create table GenderReq(
+	genderID integer NOT NULL,
 	gender varchar(32) NOT NULL,
-	circuitID integer NOT NULL,
-	FOREIGN KEY(circuitID) REFERENCES Circuit(circuitID) 
+	PRIMARY KEY(genderID) 
 )
 --
 create table GradeReq(
+	gradeID integer NOT NULL,
 	grade integer NOT NULL,
-	circuitID integer NOT NULL,
-	FOREIGN KEY(circuitID) REFERENCES Circuit(circuitID) 
+	PRIMARY KEY(gradeID)
 );
 commit;
